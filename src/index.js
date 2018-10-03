@@ -71,8 +71,7 @@ function createRewire(params) {
         return acc;
       }, {});
 
-      // checkme: possibly is not required in production env
-      config.output.filename = 'static/js/[name].[chunkhash:8].js';
+      config.output.filename = isProd ? 'static/js/[name].[chunkhash:8].js' : 'static/js/[name].bundle.js';
 
       // initial HtmlWebpackPlugin for `index.html`
       config.plugins = replacePlugin(config.plugins, (name) => /HtmlWebpackPlugin/i.test(name), getHtmlPlugin(bundles[0], isProd));

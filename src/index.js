@@ -63,7 +63,7 @@ function createRewire(params) {
       const isProd = env !== 'development';
 
       config.entry = bundles.reduce((acc, bundle) => {
-        acc[bundle] = [require.resolve('react-scripts/config/polyfills')].concat(
+        acc[bundle] = [].concat(
           isProd ? [] : require.resolve('react-dev-utils/webpackHotDevClient'),
           paths[`app${capitalize(bundle)}Js`]
         );
@@ -82,15 +82,12 @@ function createRewire(params) {
 
       return config;
     },
-    devServer: (configFunction) => {
-      return (proxy, allowedHost) => {
-        const config = configFunction(proxy, allowedHost);
-        config.historyApiFallback.rewrites = bundles.slice(1).map(bundle => {
-          return { from: new RegExp('^\/' + bundle + '.html'), to: `/build/${bundle}.html` }
-        });
+    devServer: (config) => {
+      config.historyApiFallback.rewrites = bundles.slice(1).map(bundle => {
+        return { from: new RegExp('^\/' + bundle + '.html'), to: `/build/${bundle}.html` }
+      });
 
-        return config;
-      };
+      return config;
     }
   };
 }

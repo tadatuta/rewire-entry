@@ -1,8 +1,14 @@
 # rewire-entry
 
-Rewire to change entry points of create-react-app.
+Rewire for [react-app-rewired](https://github.com/timarney/react-app-rewired) to change entry points of [create-react-app](https://github.com/facebook/create-react-app).
 
 ## Usage
+
+```
+npm install react-app-rewired rewire-entry --save-dev
+```
+
+Create a `config-overrides.js` file in the root directory with something like this:
 
 ```js
 const rewireEntry = require('rewire-entry');
